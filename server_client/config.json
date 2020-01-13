@@ -1,0 +1,6 @@
+{
+    "pin": 23,
+    "remotesConfig": [
+        "/home/snflow/github/rf-transceiver/remotes_config.json"
+    ]
+}
