@@ -3,7 +3,7 @@
 import json
 import argparse
 from multiprocessing.connection import Listener
-from transmitter import Transmitter
+from rf_transmitter import Transmitter
 
 def parseArgs():
     parser = argparse.ArgumentParser(description='RF Server.')
