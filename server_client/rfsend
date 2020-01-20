@@ -3,10 +3,11 @@
 from multiprocessing.connection import Client
 import sys
 
-msg = sys.argv[1:]
-address = ('localhost', 8486)
-conn = Client(address)
-conn.send(msg)
-# can also send arbitrary objects:
-# conn.send(['a', 2.5, None, int, sum])
-conn.close()
+if __name__ == "__main__":
+    msg = sys.argv[1:]
+    address = ('localhost', 8486)
+    conn = Client(address)
+    conn.send(msg)
+    # can also send arbitrary objects:
+    # conn.send(['a', 2.5, None, int, sum])
+    conn.close()
