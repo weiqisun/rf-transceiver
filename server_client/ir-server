@@ -1,0 +1,49 @@
+#! /bin/sh
+# /etc/init.d/rf-server
+
+### BEGIN INIT INFO
+# Provides:          rf-server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start rfserver.py at boot time
+# Description:       Run script from /usr/local/bin/rfserver.py which will start / stop a program a boot / shutdown.
+### END INIT INFO
+
+# If you want a command to always run, put it here
+
+# Carry out specific functions when asked to by the system
+d_status() {
+    result=`ps aux | grep "/usr/local/bin/rfserver.py /etc/rftx/config.json" | grep -v "grep" | wc -l`
+    if [ $result -ge 1 ]; then
+        echo "rfserver is running"
+        exit 0
+    else
+        echo "rfserver is not running"
+        exit 3
+    fi
+}
+
+case "$1" in
+  start)
+    /usr/local/bin/rfserver.py /etc/rftx/config.json &
+    ;;
+  stop)
+    /usr/local/bin/rfsend exit
+    ;;
+  restart)
+    $0 stop
+    sleep 3
+    $0 start
+    ;;
+  status)
+    d_status
+    ;;
+  *)
+    echo "Usage: /etc/init.d/rf-server {start|stop|restart}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
