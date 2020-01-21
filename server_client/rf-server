@@ -33,7 +33,7 @@ case "$1" in
     ;;
   stop)
     /usr/local/bin/rfsend exit
-    echo "RF server stopped"
+    echo "RF server is stopped"
     ;;
   restart)
     $0 stop
