@@ -27,10 +27,13 @@ d_status() {
 
 case "$1" in
   start)
+    echo "Starting RF server..."
     /usr/local/bin/rfserver.py /etc/rftx/config.json > /tmp/rfserver.log 2>&1 &
+    echo "RF server is running now"
     ;;
   stop)
     /usr/local/bin/rfsend exit
+    echo "RF server stopped"
     ;;
   restart)
     $0 stop

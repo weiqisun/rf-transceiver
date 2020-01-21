@@ -23,7 +23,7 @@ def requestHandler(conn, transmitter):
     print('processing request {}...'.format(msg))
     try:
         if msg == ['exit']:
-            conn.send("Terminating rf server...")
+            conn.send("Terminating RF server...")
             return False
 
         if msg[0] == 'list':
