@@ -1,13 +1,22 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
+import argparse
 from multiprocessing.connection import Client
 import sys
 
+def parseArgs():
+    parser = argparse.ArgumentParser(description='RF Client.')
+    parser.add_argument('msg', type=str, nargs='+', help='msg to send to the RF server')
+    parser.add_argument('-p', '--port', type=int, default=8486, required=False,
+                        help='RF server port')
+    return parser.parse_args()
+
+def sendMsg(msg, port):
+    address = ('localhost', port)
+    with Client(address) as conn:
+        conn.send(msg)
+        print(conn.recv())
+
 if __name__ == "__main__":
-    msg = sys.argv[1:]
-    address = ('localhost', 8486)
-    conn = Client(address)
-    conn.send(msg)
-    # can also send arbitrary objects:
-    # conn.send(['a', 2.5, None, int, sum])
-    conn.close()
+    args = parseArgs()
+    sendMsg(args.msg, args.port)

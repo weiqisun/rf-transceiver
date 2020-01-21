@@ -35,24 +35,26 @@ class Transmitter:
         GPIO.output(self.pin, 0)
 
     def listAllRemotes(self):
-        print("Following remotes are avialable:")
+        res = "Following remotes are avialable:"
         for remote in self.remotes:
-            print("  {}".format(remote))
+            res += "\n  {}".format(remote)
+        return res
 
     def listAllRemoteKeys(self, remote):
-        print("Following keys are avialable in {}:".format(remote))
+        res = "Following keys are avialable in {}:".format(remote)
         for key in self.remotes[remote]:
-            print("  {}".format(key))
+            res += "\n  {}".format(key)
+        return res
 
     def listRemotes(self, remote=None):
         if not remote:
-            self.listAllRemotes()
-            return
+            return self.listAllRemotes()
         if remote and remote not in self.remotes:
-            print("{} is not a valid remote.".format(remote))
-            self.listAllRemotes()
-            return
-        self.listAllRemoteKeys(remote)
+            return "'{}' is not a valid remote\n".format(remote) + self.listAllRemotes()
+        return self.listAllRemoteKeys(remote)
+
+    def valid(self, remote, key):
+        return remote and remote in self.remotes and key and key in self.remotes[remote]
 
     def __del__(self):
         GPIO.cleanup()
