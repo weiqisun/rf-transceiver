@@ -40,7 +40,7 @@ def requestHandler(conn, transmitter):
 
         # send rf code
         transmitter.send(msg[0], msg[1])
-        conn.send("Key {} on remote {} has been pressed".format(msg[0], msg[1]))
+        conn.send("Key '{}' on remote '{}' has been pressed".format(msg[1], msg[0]))
     except Exception as e:
         print("Following exception happenned while processing: {}".format(e))
     return True
